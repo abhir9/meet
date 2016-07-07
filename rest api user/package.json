@@ -1,0 +1,21 @@
+{
+  "name": "meeting_scheduler",
+  "version": "1.0.0",
+  "description": "meeting schedule for users",
+  "main": "Server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "Node.js",
+    "mongoDb"
+  ],
+  "author": "Abhimanyu Singh Rathore",
+  "license": "",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "mongoose": "^4.1.2",
+	"morgan":"*"
+  }
+}
