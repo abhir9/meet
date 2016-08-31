@@ -1,5 +1,5 @@
 package com.telefonica.nmf.citrus;
-
+import java.io.*;
 import javax.jms.*;
 
 public class TestJMS {
@@ -7,7 +7,7 @@ public class TestJMS {
     String userName = "Facade";
     String password = "facade_ems_e2e3";
 
-    public void sendMessage(String queueName, String messageStr) {
+    public void sendMessage(String queueName, String messageStr,String serviceId) {
 
         Connection connection = null;
         Session session;
@@ -28,7 +28,7 @@ public class TestJMS {
 
             msg = session.createTextMessage();
             msg.setStringProperty("Operation", "ActivateMSISDN");
-            msg.setStringProperty("ServiceId", "66284674");
+            msg.setStringProperty("ServiceId", serviceId);
             msg.setStringProperty("Consumer", "SeBuLa");
             msg.setStringProperty("RequestTag", "U259086556764791353220000");
             msg.setStringProperty("ServiceVersion", "1");
@@ -49,6 +49,33 @@ public class TestJMS {
 
     }
 
+	public String readCsvFile()
+	{
+		
+        String csvFile = "/Users/mkyong/csv/country.csv";
+        BufferedReader br = null;
+        String line = "";
+
+        try {
+      String splitBy = ",";
+      BufferedReader br = new BufferedReader(new FileReader(csvFile));
+      while((line = br.readLine()) != null){
+           String[] b = line.split(splitBy);
+           System.out.println(b[0]);
+           System.out.println(b[1]);
+           System.out.println(b[2]);
+           System.out.println(b[3]);
+
+		   }
+      br.close();
+	}
+
+         catch (Exception e) {
+            e.printStackTrace();
+       }
+	   
+	 return   subscriber[0];
+	}
     public static void main(String[] args) throws JMSException {
         String message = new StringBuilder()
                 .append("<?xml version=\"1.0\" encoding=\"UTF-16\" standalone=\"yes\"?>")
@@ -72,7 +99,8 @@ public class TestJMS {
                 .append("</ActivateMSISDNRequest>")
                 .toString();
         TestJMS testJMS = new TestJMS();
-        testJMS.sendMessage("NMS.Facade.MSISDNManagement.V1", message);
+		String serviceId=testJMS.readCsvFile();
+        testJMS.sendMessage("NMS.Facade.MSISDNManagement.V1", message,serviceId);
     }
 
 }
