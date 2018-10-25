@@ -6,11 +6,11 @@ const handleGetPolls = (req, res) => {
     .sort({ 'pollInfo.totalVotes': -1 })
     .limit(6)
     .then((info) => {
-      res.json(info)
+      res.status(200).send(info)
     })
     .catch((err) => {
       console.error('poll find error', err)
-      res.send(`FAIL to find most voted polls`)
+      res.status(500).send(`FAIL to find most voted polls`)
     })
 }
 

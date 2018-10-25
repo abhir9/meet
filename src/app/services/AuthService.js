@@ -3,7 +3,7 @@
 const AuthService = ($http, $rootScope, StorageService, jwtHelper) => {
   const register = (email, password) => {
     return $http.post(`/register/`, {email, password})
-                .then(res => res.data)
+        .then(res => res.data)
   }
 
   const isLoggedIn = () => {
@@ -20,19 +20,19 @@ const AuthService = ($http, $rootScope, StorageService, jwtHelper) => {
 
   const login = (email, password) => {
     return $http.post('/login/', {email, password})
-              .then(res => res.data)
-              .then(data => {
-                StorageService.set('token',data.token)
-                setCredentials(data.token)
-                return data
-              })
+        .then(res => res.data)
+        .then(data => {
+          StorageService.set('token', data.token)
+          setCredentials(data.token)
+          return data
+        })
   }
 
   const logout = (email, password) => {
-      StorageService.clear();
+    StorageService.clear();
     delete $rootScope.loggedUser
-      const url = `/logout`
-      return $http.get(url)
+    const url = `/logout`
+    return $http.get(url)
   }
 
   return {

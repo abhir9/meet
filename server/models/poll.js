@@ -38,7 +38,10 @@ const PollSchema = new mongoose.Schema({
   imgBase64: {
     type: String,
     default: ''
+  },
+  userPolled: {
+    type: Array,
   }
-}, { collection })
+}, {collection})
 
 module.exports = mongoose.model('Poll', PollSchema)

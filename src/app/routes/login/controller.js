@@ -8,7 +8,6 @@ function  loginController (AuthService, $location,StorageService) {
     e.preventDefault()
     AuthService.login(this.email, this.password)
       .then(data => {
-console.log(data);
 if (data.success) {
           Materialize.toast('Succesfully logged!', 2000)
     StorageService.set('userData',JSON.stringify(data))

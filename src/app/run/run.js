@@ -5,6 +5,9 @@ const run = ($rootScope, $location, StorageService, AuthService) => {
     const token = StorageService.get('token')
     AuthService.setCredentials(token)
   }
+  else {
+    $location.path('/login')
+  }
 
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
     $(document).ready(function () {

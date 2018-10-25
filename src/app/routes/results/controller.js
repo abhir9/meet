@@ -5,7 +5,12 @@ const FileSaver = require('file-saver')
 const Chart = require('chart.js')
 const socket = require('socket.io-client').connect({'force new connection': true})
 
-function resultsController($scope, $rootScope, $routeParams, dataService, AuthService, ChartService, $location) {
+function resultsController($scope, $rootScope, $routeParams, dataService, StorageService, AuthService, ChartService, $location) {
+  const user = JSON.parse(StorageService.get('userData'));
+  if (!user) {
+    $location.path('/login')
+    AuthService.logout();
+  }
   const {id} = $routeParams
   let myChart
   let saveCount = 0
@@ -19,7 +24,6 @@ function resultsController($scope, $rootScope, $routeParams, dataService, AuthSe
     const url = $location.absUrl()
     const token = url.split('/').pop()
     if (idPollUpdated === token) {
-      console.log(`update all clients in poll ${idPollUpdated}`)
       dataService.getInfoPoll(idPollUpdated)
           .then((response) => {
             $scope.question = response.data.question

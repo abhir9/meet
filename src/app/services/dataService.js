@@ -7,7 +7,7 @@ const getData = ($http) => {
 
   const vote = (idPoll, idsVote, logged, duplicationChecking) => {
     const url = `/api/poll/${idPoll}/vote/${idsVote}`
-    const data = { logged, duplicationChecking }
+    const data = {logged, duplicationChecking}
     return $http.put(url, data)
   }
 
@@ -25,6 +25,20 @@ const getData = ($http) => {
     const url = `/api/infoUser/${id}`
     return $http.get(url)
   }
+  const postUserPolls = (data) => {
+    let url = `/privateArea/`
+    let req = {
+      method: 'POST',
+      url: url,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    }
+
+    return $http(req)
+  }
+
 
   const deletePoll = (id) => {
     const url = `/api/privateArea/${id}`
@@ -33,7 +47,7 @@ const getData = ($http) => {
 
   const updateImage = (id, imgUrl) => {
     const url = `/api/updateImg/${id}`
-    return $http.post(url, { imgUrl })
+    return $http.post(url, {imgUrl})
   }
 
   return {
@@ -43,7 +57,8 @@ const getData = ($http) => {
     updateStatus,
     getUserPolls,
     deletePoll,
-    updateImage
+    updateImage,
+    postUserPolls
   }
 }
 
